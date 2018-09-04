@@ -2,22 +2,22 @@ package mvc;
 import java.sql.Date;
 
 public class User {
-	/*
+	
 	private Integer id;
-	private String nome;
-	private Date nascimento;
-	private Double altura;
+	private String login_name;
+	private String display_name;
+	private String pass_hash;
 	
 	public Integer getID() {return this.id;}
 	public void setID(Integer id) {this.id=id;}
 	
-	public String getNome() {return this.nome;}
-	public void setNome(String nome) {this.nome=nome;}
+	public String getLoginName() {return this.login_name;}
+	public void setLoginName(String login_name) {this.login_name=login_name;}
 	
-	public Date getNascimento(){return this.nascimento;}
-	public void setNascimento(Date nascimento) {this.nascimento=nascimento;}
+	public String getDisplayName() {return this.display_name;}
+	public void setDisplayName(String display_name) {this.display_name=display_name;}
 	
-	public Double getAltura() {return this.altura;}
-	public void setAltura(Double altura) {this.altura=altura;}
-	*/
+	public String getPassHash() {return this.pass_hash;}
+	public void setPassHash(String pass_hash) {this.pass_hash=pass_hash;}
+	
 }
