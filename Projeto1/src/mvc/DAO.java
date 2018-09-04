@@ -90,7 +90,7 @@ public class DAO {
 		return notes;
 	}
 	
-	public void adiciona(User user){
+	public void addUser(User user){
 		String sql= "INSERT INTO User "+"(login_name, display_name, pass_hash) values(?, ?, ?)";
 		PreparedStatement stmt;
 		try {
@@ -105,6 +105,47 @@ public class DAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public void addNote(Note note, User user){
+		if(note.getExpiryDate()==null) {
+			String sql = "INSERT INTO Note "+"(message_body, creation_date, priority_level, id_owner) values(?, ?, ?, ?)";
+			
+			PreparedStatement stmt;
+			try {
+				stmt = connection.prepareStatement(sql);
+				stmt.setString(1, note.getMessageBody() );
+				stmt.setDate(2, note.getCreationDate() );
+				stmt.setInt(3, note.getPriorityLevel() );
+				stmt.setInt(4, user.getIdOwner() );
+				
+				stmt.execute();
+				stmt.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		else { 
+			String sql = "INSERT INTO Note "+"(message_body, creation_date,expiry_date, priority_level, id_owner) values(?, ?, ?, ?, ?)";
+			
+			PreparedStatement stmt;
+			try {
+				stmt = connection.prepareStatement(sql);
+				stmt.setString(1, note.getMessageBody() );
+				stmt.setDate(2, note.getCreationDate() );
+				stmt.setDate(3, note.getExpiryDate() );
+				stmt.setInt(4, note.getPriorityLevel() );
+				stmt.setInt(5, user.getIdOwner() );
+				
+				stmt.execute();
+				stmt.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 	}
 	
 	public void altera(User user){
