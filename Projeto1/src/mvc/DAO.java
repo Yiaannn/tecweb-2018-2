@@ -148,7 +148,7 @@ public class DAO {
 		
 	}
 	
-	public void altera(User user){
+	public void update(User user){
 		//Deliberadamente não queremos que o login_name seja alterável, apenas o display_name e a senha
 		String sql= "UPDATE User SET "+"display_name=?, pass_hash=? WHERE id=?";
 		
