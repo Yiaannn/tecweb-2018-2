@@ -2,9 +2,12 @@ package mvc;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Base64;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -51,22 +54,44 @@ public class addUser extends HttpServlet{
 		user.setLoginName(request.getParameter("login"));
 		user.setDisplayName(request.getParameter("login")); //na criação são o mesmo valor, depois pode ser trocado
 		
-		String passhash= "porenquantoteste";
-		user.setPassHash(passhash);
+		try{
+			MessageDigest digest = MessageDigest.getInstance("SHA-256");
+			byte[] hash = digest.digest(  request.getParameter("pass").getBytes(StandardCharsets.UTF_8)  );
+			String passhash = bytesToHex(hash);
+			
+			System.out.println("Para garantir, printar o hash:");
+			System.out.println(passhash);
+			user.setPassHash(passhash);
+			
+			
+			boolean isAvailable= dao.checkIfLoginIsAvailable(user);
+			if (isAvailable){
+				dao.addUser(user);
+				System.out.println("Login não existe, addUser continua");	
+			}else{
+				System.out.println("Login já existe, addUser cancelado");	
+			}
+		}catch (Exception e){
+			System.out.println("Something went really wrong while hashing");
+		}
 		
 		
-		dao.addUser(user);
 		
-		//PrintWriter out= response.getWriter();
-		//out.println("<html><body>");
-		//out.println("adicionado"+pessoa.getNome() );
-		//out.println("</body></html");
 		
-		System.out.println("Teste, caí no doPost");
-		System.out.println(request.getParameter("login"));
-		System.out.println(request.getParameter("pass"));
-		
+		System.out.println("Teste, caí no doPost");		
 		
 		dao.close();
+	}
+	
+	private static String bytesToHex(byte[] bytes) { //adaptado de https://stackoverflow.com/a/9855338
+		final char[] hexArray = "0123456789ABCDEF".toCharArray();
+		
+	    char[] hexChars = new char[bytes.length * 2];
+	    for ( int j = 0; j < bytes.length; j++ ) {
+	        int v = bytes[j] & 0xFF;
+	        hexChars[j * 2] = hexArray[v >>> 4];
+	        hexChars[j * 2 + 1] = hexArray[v & 0x0F];
+	    }
+	    return new String(hexChars);
 	}
 }

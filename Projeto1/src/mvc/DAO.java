@@ -167,6 +167,29 @@ public class DAO {
 		}
 	}
 	
+	public boolean checkIfLoginIsAvailable(User user){
+		String sql= "SELECT * FROM User WHERE login_name=?";
+		
+		PreparedStatement stmt;
+		ResultSet rs;
+		boolean ans= false;
+		try {
+			stmt = connection.prepareStatement(sql);
+			stmt.setString(1, user.getLoginName() );
+			
+			rs= stmt.executeQuery();
+			ans= !rs.next();
+			System.out.println("debugando checkIfLoginIsAvailable");
+			System.out.println("ans vale: "+Boolean.toString(ans));
+			stmt.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return ans;
+	}
+	
 	/*
 	public void remove(Integer id){
 		PreparedStatement stmt;
