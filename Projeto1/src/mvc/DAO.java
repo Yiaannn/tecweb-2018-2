@@ -33,17 +33,17 @@ public class DAO {
 		ResultSet rs;
 		try {
 			stmt = connection.prepareStatement("SELECT * FROM Note WHERE id_owner=?");
-			stmt.setString(1, user.getID() );
+			stmt.setInt(1, user.getID() );
 			rs = stmt.executeQuery();
 			boolean is_active;
 			while( rs.next()){
 				is_active= rs.getBoolean("is_active");
 				if(is_active){
 					Note note= new Note();
-					note.setMessageBody(rs.getInt("id"));
-					note.setCrationDate(rs.getString("nome"));
-					note.setExpiryDate.setNascimento(rs.getDate("nascimento"));
-					note.setPriorityLevel(rs.getDouble("altura"));
+					note.setMessageBody(rs.getString("message_body"));
+					note.setCreationDate(rs.getDate("creation_date"));
+					note.setExpiryDate(rs.getDate("expiry_date"));
+					note.setPriorityLevel(rs.getInt("priority_level"));
 					notes.add(note);
 				}
 			}
@@ -65,17 +65,17 @@ public class DAO {
 		ResultSet rs;
 		try {
 			stmt = connection.prepareStatement("SELECT * FROM Note WHERE id_owner=?");
-			stmt.setString(1, user.getID() );
+			stmt.setInt(1, user.getID() );
 			rs = stmt.executeQuery();
 			boolean is_active;
 			while( rs.next()){
 				is_active= rs.getBoolean("is_active");
 				if(!is_active){
 					Note note= new Note();
-					note.setMessageBody(rs.getInt("id"));
-					note.setCrationDate(rs.getString("nome"));
-					note.setExpiryDate.setNascimento(rs.getDate("nascimento"));
-					note.setPriorityLevel(rs.getDouble("altura"));
+					note.setMessageBody(rs.getString("message_body"));
+					note.setCreationDate(rs.getDate("creation_date"));
+					note.setExpiryDate(rs.getDate("expiry_date"));
+					note.setPriorityLevel(rs.getInt("priority_level"));
 					notes.add(note);
 				}
 			}
@@ -96,8 +96,8 @@ public class DAO {
 		try {
 			stmt = connection.prepareStatement(sql);
 			stmt.setString(1, user.getLoginName() );
-			stmt.setDate(2, user.getDisplayName() );
-			stmt.setDouble(3, user.getPassHash() );
+			stmt.setString(2, user.getDisplayName() );
+			stmt.setString(3, user.getPassHash() );
 			
 			stmt.execute();
 			stmt.close();
@@ -117,7 +117,7 @@ public class DAO {
 				stmt.setString(1, note.getMessageBody() );
 				stmt.setDate(2, note.getCreationDate() );
 				stmt.setInt(3, note.getPriorityLevel() );
-				stmt.setInt(4, user.getIdOwner() );
+				stmt.setInt(4, user.getID() );
 				
 				stmt.execute();
 				stmt.close();
@@ -136,7 +136,7 @@ public class DAO {
 				stmt.setDate(2, note.getCreationDate() );
 				stmt.setDate(3, note.getExpiryDate() );
 				stmt.setInt(4, note.getPriorityLevel() );
-				stmt.setInt(5, user.getIdOwner() );
+				stmt.setInt(5, user.getID() );
 				
 				stmt.execute();
 				stmt.close();
@@ -155,9 +155,9 @@ public class DAO {
 		PreparedStatement stmt;
 		try {
 			stmt = connection.prepareStatement(sql);
-			stmt.setDate(1, user.getDisplayName() );
-			stmt.setDouble(2, user.getPassHash() );
-			stmt.setInt(3, user.getID );
+			stmt.setString(1, user.getDisplayName() );
+			stmt.setString(2, user.getPassHash() );
+			stmt.setInt(3, user.getID() );
 			
 			stmt.execute();
 			stmt.close();
