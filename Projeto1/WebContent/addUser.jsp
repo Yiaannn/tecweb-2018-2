@@ -9,9 +9,9 @@
 <body>
 
 <form action='/Projeto1/addUser' method='post' >
-	Login: <input type='text' name='login'><br>
-	Senha: <input type='password' name='pass'><br>
-	<input type='submit' value='Submit'>
+	<input type='text' name='login' placeholder='login'><br>
+	<input type='password' name='pass' placeholder='senha'><br>
+	<input type='submit' value='Confirmar'>
 </form>
 	
 <%@ page import="java.util.*,mvc.*" %>
