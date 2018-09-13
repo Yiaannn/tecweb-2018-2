@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<link rel="stylesheet" href="mystyle.css">
+<style> <%@include file="/mystyle.css"%> </style>
 <title>Insert title here</title>
 </head>
 <body>
