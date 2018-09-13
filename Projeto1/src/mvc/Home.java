@@ -29,7 +29,6 @@ public class Home extends HttpServlet{
 		LoginSession ls= new LoginSession(dao, request, response);
 		
 		if (ls.isValid()){
-			//response.sendRedirect("addUser.jsp");
 			response.sendRedirect("HomeLogged.jsp");
 			
 			String message = ls.getUser().getLoginName();

@@ -61,7 +61,7 @@ public class SignUp extends HttpServlet{
 				ls.signIn(user);
 				
 				//Redirecionar de volta à home
-				response.sendRedirect("/");
+				response.sendRedirect("/Projeto1/");
 				
 			}else{
 				String message = "O Nome de usuário desejado já foi usado";

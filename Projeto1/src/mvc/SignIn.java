@@ -56,7 +56,7 @@ public class SignIn extends HttpServlet{
 				//Login deu sucesso!
 				
 				System.out.println("Usuário "+user.getLoginName()+" Logado com sucesso!");
-				response.sendRedirect("/");
+				response.sendRedirect("/Projeto1/");
 			}else{
 				//Login deu ruim!
 				
