@@ -66,12 +66,15 @@ public class LoginSession {
 		return isValid;
 	}
 	
+	public User getUser(){
+		return user;
+	}
+	
 	public boolean signIn(User user){
 		//retornar true se login bem sucedido, false senão
 		
 		//chamar o DAO e confirmar o login
 		
-		isValid= this.dao.validateUser(user);
 		if(isValid){
 			//escrever um cookie
 			auth = new Cookie(COOKIENAME, user.getLoginName()+"-"+user.getPassHash()); //TODO assumir que login está sanitizado?

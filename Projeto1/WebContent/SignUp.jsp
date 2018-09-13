@@ -15,11 +15,11 @@
 
 <div class="centerbox">
 	<div class="centerboxchild">
-		<h1>Sign Up</h1>
+		<h1>Inscrever-se</h1>
 	</div>
 	
 	<div class="centerboxchild">
-		<form id="signup" action='/Projeto1/addUser' method='post' >
+		<form id="signup" action='/Projeto1/SignUp' method='post' >
 			<input type='text' name='login' placeholder='login'><br>
 			<input type='password' name='pass' placeholder='senha'><br>
 		</form>
@@ -32,13 +32,6 @@
 </div>
 	
 <%@ page import="java.util.*,mvc.*" %>
-
-<%
-//logins a princípio são únicos, posso usar eles como quesito de busca como um "pseudo id"
-
-%>
-
-
 
 </body>
 </html>

@@ -16,8 +16,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/addUser")
-public class addUser extends HttpServlet{
+@WebServlet("/SignIn")
+public class SignIn extends HttpServlet{
 	
 
 	@Override
@@ -25,7 +25,7 @@ public class addUser extends HttpServlet{
 			throws ServletException, IOException{
 		
 		String message = "";
-		response.sendRedirect(  "addUser.jsp?message=" + URLEncoder.encode(message, "UTF-8")  );
+		response.sendRedirect(  "SignIn.jsp?message=" + URLEncoder.encode(message, "UTF-8")  );
 	}
 	
 	@Override
@@ -50,19 +50,19 @@ public class addUser extends HttpServlet{
 			user.setPassHash(passhash);
 			
 			
-			boolean isAvailable= dao.checkIfLoginIsAvailable(user);
-			
-			if (isAvailable){
-				dao.addUser(user);
-				System.out.println("Login não existe, addUser continua");
+			//Escrever o cookie
+			LoginSession ls= new LoginSession(dao, request, response);
+			if(  ls.signIn(user)  ){
+				//Login deu sucesso!
 				
-				//Escrever o cookie
-				LoginSession ls= new LoginSession(dao, request, response);
-				ls.signIn(user);
-				
+				System.out.println("Usuário "+user.getLoginName()+" Logado com sucesso!");
+				response.sendRedirect("/");
 			}else{
-				String message = "O Nome de usuário desejado já foi usado";
-				response.sendRedirect(  "addUser.jsp?message=" + URLEncoder.encode(message, "UTF-8")  );
+				//Login deu ruim!
+				
+				System.out.println("Usuário "+user.getLoginName()+" Não encontrado!");
+				String message = "Não foi possível realizar Log-In com o par usuário-senha fornecido";
+				response.sendRedirect(  "SignIn.jsp?message=" + URLEncoder.encode(message, "UTF-8")  );
 			}
 		}catch (Exception e){
 			System.out.println("Something went really wrong while hashing");
