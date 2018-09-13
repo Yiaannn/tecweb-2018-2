@@ -4,15 +4,28 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
+<link rel="stylesheet" href="mystyle.css">
 <title>Insert title here</title>
 </head>
 <body>
 
-<form action='/Projeto1/addUser' method='post' >
-	<input type='text' name='login' placeholder='login'><br>
-	<input type='password' name='pass' placeholder='senha'><br>
-	<input type='submit' value='Confirmar'>
-</form>
+<div class="centerbox">
+	<div class="centerboxchild">
+		<h1>Sign Up</h1>
+	</div>
+	
+	<div class="centerboxchild">
+		<form id="signup" action='/Projeto1/addUser' method='post' >
+			<input type='text' name='login' placeholder='login'><br>
+			<input type='password' name='pass' placeholder='senha'><br>
+		</form>
+	</div>
+	
+	<div class="centerboxchild">
+		<button type="submit">Voltar</button>
+		<button type="submit" form="signup">Confirmar</button>
+	</div>
+</div>
 	
 <%@ page import="java.util.*,mvc.*" %>
 
