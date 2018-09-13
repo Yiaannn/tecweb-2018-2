@@ -51,6 +51,7 @@ public class SignIn extends HttpServlet{
 			
 			
 			//Escrever o cookie
+			System.out.println("Abri meu LoginSession!");
 			LoginSession ls= new LoginSession(dao, request, response);
 			if(  ls.signIn(user)  ){
 				//Login deu sucesso!

@@ -29,11 +29,9 @@ public class Home extends HttpServlet{
 		LoginSession ls= new LoginSession(dao, request, response);
 		
 		if (ls.isValid()){
-			response.sendRedirect("HomeLogged.jsp");
-			
 			String message = ls.getUser().getLoginName();
 			message="Logado como "+message;
-			response.sendRedirect(  "addUser.jsp?message=" + URLEncoder.encode(message, "UTF-8")  );
+			response.sendRedirect(  "HomeLogged.jsp?message=" + URLEncoder.encode(message, "UTF-8")  );
 		}else{
 			response.sendRedirect("HomeUnlogged.jsp");
 		}

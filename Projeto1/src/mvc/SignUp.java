@@ -62,7 +62,6 @@ public class SignUp extends HttpServlet{
 				
 				//Redirecionar de volta à home
 				response.sendRedirect("/Projeto1/");
-				
 			}else{
 				String message = "O Nome de usuário desejado já foi usado";
 				response.sendRedirect(  "SignUp.jsp?message=" + URLEncoder.encode(message, "UTF-8")  );

@@ -25,9 +25,11 @@ public class LoginSession {
 		
 		//procurar e carregar um cookie
 		Cookie c[]=request.getCookies();
+		
 		if (c != null){
 			for(int i=0;i<c.length;i++){
-				if(c[i].getName()==COOKIENAME){
+				
+				if( c[i].getName().equals(COOKIENAME) ){
 					auth= c[i];
 					break;
 				}
@@ -35,15 +37,14 @@ public class LoginSession {
 		}
 		
 		//se encontrar, conferir que de fato o cookie é válido
-		
-		//imaginar por enquanto que meu cookie é literalmente o nome+espaço+passhash
 		if(auth!=null){
+			System.out.println( "Encontrei o meu cookie de validação" );
+			
 			String[] tokens= auth.getValue().split("-");
 			String login= tokens[0];
 			String hash= tokens[1];
 			
 			System.out.println();
-			System.out.println("Debugging!");
 			System.out.println("O split do meu cookie resultou em:");
 			System.out.println(login);
 			System.out.println(hash);
@@ -58,7 +59,9 @@ public class LoginSession {
 				user=null;
 				auth=null;
 			}
+			return;
 		}
+		System.out.println( "Não Encontrei o meu cookie de validação" );
 	}
 	
 	public boolean isValid(){
@@ -74,22 +77,20 @@ public class LoginSession {
 		//retornar true se login bem sucedido, false senão
 		
 		//chamar o DAO e confirmar o login
-		
+		isValid= dao.validateUser(user);
 		if(isValid){
 			//escrever um cookie
 			auth = new Cookie(COOKIENAME, user.getLoginName()+"-"+user.getPassHash()); //TODO assumir que login está sanitizado?
 			auth.setMaxAge(-1); //Se desfazer do cookie após a sessão
 			
-			System.out.println();
-			System.out.println("Tenho um bug na hora de formar o cookie");
-			System.out.println("A string do conteúdo é user.getLoginName()+\"-\"+user.getPassHash()");
-			System.out.println("Printando ela tenho:");
-			System.out.println(user.getLoginName()+"-"+user.getPassHash());
-			System.out.println();
 			response.addCookie(auth);
-			
 			System.out.println("Escrevi um cookie válido para o usuário: "+user.getLoginName());
 		}
+		
+		System.out.println("Não escrevi um cookie válido para o usuário: "+user.getLoginName());
+		System.out.println("Senha foi: "+user.getPassHash());
+		
+		this.user= user;
 		return isValid;
 	}
 	
