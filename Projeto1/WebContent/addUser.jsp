@@ -9,6 +9,10 @@
 </head>
 <body>
 
+<form id="voltar" action='/Projeto1/' method='get'></form>
+
+<p>${param.message}</p>
+
 <div class="centerbox">
 	<div class="centerboxchild">
 		<h1>Sign Up</h1>
@@ -22,7 +26,7 @@
 	</div>
 	
 	<div class="centerboxchild">
-		<button type="submit">Voltar</button>
+		<button type="submit" form='voltar'>Voltar</button>
 		<button type="submit" form="signup">Confirmar</button>
 	</div>
 </div>

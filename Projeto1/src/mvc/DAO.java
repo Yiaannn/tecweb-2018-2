@@ -179,8 +179,8 @@ public class DAO {
 			
 			rs= stmt.executeQuery();
 			ans= !rs.next();
-			System.out.println("debugando checkIfLoginIsAvailable");
-			System.out.println("ans vale: "+Boolean.toString(ans));
+			//System.out.println("debugando checkIfLoginIsAvailable");
+			//System.out.println("ans vale: "+Boolean.toString(ans));
 			stmt.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -190,20 +190,29 @@ public class DAO {
 		return ans;
 	}
 	
-	/*
-	public void remove(Integer id){
-		PreparedStatement stmt;
+	public boolean validateUser(User user) {
+		//Retorna false se o signUp falhar (par login e hash incorreto)
+		//pesquisar pelo par login+senha
+		
+		PreparedStatement stmt= null;
+		String sql= "";
+		boolean ans= false;
 		try {
-			stmt = connection.prepareStatement("DELETE FROM Pessoas WHERE id=?");
-			stmt.setLong(1, id);
-			stmt.execute();
+			sql = "SELECT * FROM User WHERE login_name=? AND pass_hash=?"; //TODO confirmar se é assim que uso o prepared statement e se ele já adciona as aspas
+			stmt = connection.prepareStatement(sql);
+			stmt.setString(1, user.getLoginName());
+			stmt.setString(2, user.getPassHash());
+			ResultSet rs= stmt.executeQuery();
+			
+			ans= rs.next();
 			stmt.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		}catch(Exception e) {
 			e.printStackTrace();
 		}
+		
+		System.out.println("Checando a validação do usuário: "+Boolean.toString(ans));
+		return ans;
 	}
-	*/
 	
 	public void close(){
 		try {

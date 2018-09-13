@@ -2,6 +2,7 @@ package mvc;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.sql.Date;
@@ -23,23 +24,8 @@ public class addUser extends HttpServlet{
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException{
 		
-		/*
-		PrintWriter out= response.getWriter();
-		String tmpstring=
-				"<html><body>"
-				+ "<form method='post'>"
-				+"	Login: <input type='text' name='login'><br>"
-				+"	Senha: <input type='password' name='pass'><br>"
-				+"	<input type='submit' value='Submit'>"
-				+"</form>"
-				+"<body><html>";
-		out.println(tmpstring);
-		*/
-		
-		//System.out.println("Teste: "+login);
-		
-		System.out.println("Teste, caí no doGet");
-		response.sendRedirect("addUser.jsp");
+		String message = "";
+		response.sendRedirect(  "addUser.jsp?message=" + URLEncoder.encode(message, "UTF-8")  );
 	}
 	
 	@Override
@@ -65,21 +51,25 @@ public class addUser extends HttpServlet{
 			
 			
 			boolean isAvailable= dao.checkIfLoginIsAvailable(user);
+			
 			if (isAvailable){
 				dao.addUser(user);
-				System.out.println("Login não existe, addUser continua");	
+				System.out.println("Login não existe, addUser continua");
+				
+				//Escrever o cookie
+				LoginSession ls= new LoginSession(dao, request, response);
+				ls.signIn(user);
+				
 			}else{
-				System.out.println("Login já existe, addUser cancelado");	
+				String message = "O Nome de usuário desejado já foi usado";
+				response.sendRedirect(  "addUser.jsp?message=" + URLEncoder.encode(message, "UTF-8")  );
 			}
 		}catch (Exception e){
 			System.out.println("Something went really wrong while hashing");
+			e.printStackTrace();
 		}
 		
-		
-		
-		
-		System.out.println("Teste, caí no doPost");		
-		
+
 		dao.close();
 	}
 	
