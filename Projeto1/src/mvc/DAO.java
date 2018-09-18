@@ -91,7 +91,7 @@ public class DAO {
 	}
 	
 	public void addUser(User user){
-		String sql= "INSERT INTO User "+"(login_name, display_name, pass_hash) values(?, ?, ?)";
+		String sql= "INSERT INTO User (login_name, display_name, pass_hash) values(?, ?, ?)";
 		PreparedStatement stmt;
 		try {
 			stmt = connection.prepareStatement(sql);
@@ -109,7 +109,7 @@ public class DAO {
 	
 	public void addNote(Note note, User user){
 		if(note.getExpiryDate()==null) {
-			String sql = "INSERT INTO Note "+"(message_body, creation_date, priority_level, id_owner) values(?, ?, ?, ?)";
+			String sql = "INSERT INTO Note (message_body, creation_date, priority_level, is_active id_owner) values(?, ?, ?, ?)";
 			
 			PreparedStatement stmt;
 			try {
@@ -117,7 +117,8 @@ public class DAO {
 				stmt.setString(1, note.getMessageBody() );
 				stmt.setDate(2, note.getCreationDate() );
 				stmt.setInt(3, note.getPriorityLevel() );
-				stmt.setInt(4, user.getID() );
+				stmt.setBoolean(4, true);
+				stmt.setInt(5, user.getID() );
 				
 				stmt.execute();
 				stmt.close();
@@ -193,6 +194,7 @@ public class DAO {
 	public boolean validateUser(User user) {
 		//Retorna false se o signUp falhar (par login e hash incorreto)
 		//pesquisar pelo par login+senha
+		//preenche user com os demais campos
 		
 		PreparedStatement stmt= null;
 		String sql= "";
@@ -205,6 +207,13 @@ public class DAO {
 			ResultSet rs= stmt.executeQuery();
 			
 			ans= rs.next();
+			
+			if( ans){
+				user.setDisplayName( rs.getString("display_name") );
+				user.setID( rs.getInt("id_user") );
+			}
+			
+			rs.close();
 			stmt.close();
 		}catch(Exception e) {
 			e.printStackTrace();
