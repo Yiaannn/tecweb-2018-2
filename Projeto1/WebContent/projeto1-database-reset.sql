@@ -11,7 +11,7 @@ CREATE TABLE User (
   PRIMARY KEY (id_user)
 );
 
-CREATE TABLE Notes (
+CREATE TABLE Note (
 	id_notes INT NOT NULL AUTO_INCREMENT,
     message_body TEXT,
     creation_date DATE NOT NULL,
