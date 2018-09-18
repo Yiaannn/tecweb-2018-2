@@ -14,6 +14,22 @@
 
 <p>${message}</p>
 <div class="boxwrapper">
+	<div class="centerbox">
+		<div class="centerboxchild">
+			<details>
+				<summary>Testando elemento para criar nota</summary>
+				<div class="centerboxchild">
+				<form id="signup" action='/Projeto1/SignIn' method='post' >
+					<input type='text' name='noteMessage' placeholder='Nota'><br>
+				</form>
+				</div>
+				<div class="centerboxchild">
+					<button type="submit" form="signup">Confirmar</button>
+				</div>
+			</details>
+		</div>
+	</div>
+
 	<c:forEach items="${notes}" var="note">
 		<div class="centerbox">
 			<div class="centerboxchild">
