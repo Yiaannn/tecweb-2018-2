@@ -13,15 +13,16 @@
 <form id="signin" action='/Projeto1/SignIn' method='get'></form>
 
 <p>${param.message}</p>
-
-<div class="centerbox">
-	<div class="centerboxchild">
-		<h1>Projeto Notinhas</h1>
-	</div>
-	
-	<div class="centerboxchild">
-		<button type="submit" form='signup'>Inscrever-se</button>
-		<button type="submit" form="signin">Acessar Perfil</button>
+<div class="boxwrapper">
+	<div class="centerbox">
+		<div class="centerboxchild">
+			<h1>Projeto Notinhas</h1>
+		</div>
+		
+		<div class="centerboxchild">
+			<button type="submit" form='signup'>Inscrever-se</button>
+			<button type="submit" form="signin">Acessar Perfil</button>
+		</div>
 	</div>
 </div>
 	
