@@ -9,6 +9,7 @@ import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,7 +33,11 @@ public class Notes extends HttpServlet{
 			String message = ls.getUser().getLoginName();
 			message="Logado como "+message;
 			
-			response.sendRedirect(  "ListActive.jsp?message=" + URLEncoder.encode(message, "UTF-8")  );
+			List<Note> notes= dao.getActiveNoteList( ls.getUser() );
+			
+			request.setAttribute("notes", notes);
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("ListActive.jsp").forward(request, response);
 		}else{
 			response.sendRedirect("HomeUnlogged.jsp");
 		}
@@ -42,6 +47,7 @@ public class Notes extends HttpServlet{
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException{
 		
+		/*
 		//TODO fazer alguma espécie de check se o User já não existe
 		
 		DAO dao= new DAO();
@@ -77,17 +83,6 @@ public class Notes extends HttpServlet{
 		System.out.println("Teste, caí no doPost");		
 		
 		dao.close();
-	}
-	
-	private static String bytesToHex(byte[] bytes) { //adaptado de https://stackoverflow.com/a/9855338
-		final char[] hexArray = "0123456789ABCDEF".toCharArray();
-		
-	    char[] hexChars = new char[bytes.length * 2];
-	    for ( int j = 0; j < bytes.length; j++ ) {
-	        int v = bytes[j] & 0xFF;
-	        hexChars[j * 2] = hexArray[v >>> 4];
-	        hexChars[j * 2 + 1] = hexArray[v & 0x0F];
-	    }
-	    return new String(hexChars);
+		*/
 	}
 }
