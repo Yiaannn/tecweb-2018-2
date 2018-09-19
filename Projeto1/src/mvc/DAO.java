@@ -20,6 +20,9 @@ public class DAO {
 		}
 		try {
 			connection= DriverManager.getConnection("jdbc:mysql://localhost/tecwebprojeto1?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "12063cb5d72571662926aa355c97abc8a28c87f3");
+			/*
+			connection= DriverManager.getConnection("jdbc:mysql://localhost/tecwebprojeto1?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "130879");
+			*/
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
