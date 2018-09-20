@@ -19,12 +19,20 @@
 			<details>
 				<summary>Nova Nota</summary>
 				<div class="centerboxchild">
-				<form id="signup" action='/Projeto1/SignIn' method='post' >
-					<input type='text' name='noteMessage' placeholder='Nota'><br>
+				<form id="postNote" action='/Projeto1/Notes' method='post' >
+					<input type="hidden" name="_method" value="POST">
+					<textarea name="messageBody" placeholder='Corpo da Mensagem' cols="40" rows="5"></textarea>
+					<h2>Prioridade</h2>
+					<input type="range" name="priority" min="0" max="9" value="0" step="1" />
+					<h2>Segurar até</h2>
+					<input type="date" name="expiryDate" />
 				</form>
 				</div>
 				<div class="centerboxchild">
-					<button type="submit" form="signup">Confirmar</button>
+					
+				</div>
+				<div class="centerboxchild">
+					<button type="submit" form="postNote" ">Confirmar</button>
 				</div>
 			</details>
 		</div>
@@ -36,7 +44,13 @@
 				<h1>Prioridade: ${note.getDecoratedPriorityLevel()}</h1>
 			</div>
 			<div class="centerboxchild">
-				<p>${note.getMessageBody()}</p>
+				<p class="messageBody">${note.getMessageBody()}</p>
+			</div>
+			<div class="centerboxchild">
+				<p>Criado em ${note.getCreationDate()}</p>
+			</div>
+			<div class="centerboxchild">
+				<p>${note.getDecoratedExpiryDate()}</p>
 			</div>
 			<div class="centerboxchild">
 				<form id="deleteNote" action='/Projeto1/Notes' method='post'>
@@ -46,6 +60,13 @@
 			</div>
 		</div>
 	</c:forEach>
+	
+	<div class="centerbox">
+		<div class="centerboxchild">
+			<form id="voltar" action='/Projeto1/' method='get'></form>
+			<button type="submit" form="voltar">Voltar</button>
+		</div>
+	</div>
 </div>
 
 </body>

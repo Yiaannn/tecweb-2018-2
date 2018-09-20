@@ -75,10 +75,15 @@ form{
 	justify-content: center;
 	flex-direction: column;
 	
+	/*
 	position: fixed;
 	top: 0%;
 	left: 50%;
 	transform: translate(-50%, 0%);
+	*/
+	align-items: center;
+	text-align:center;
+	width: 100%;
 	
 }
 
@@ -148,4 +153,10 @@ details > summary::focus {
 
 details{
 	font-family: fa5-proxima-nova,"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.messageBody{
+	background: #F2F2F2;
+	
+	color: #7AACAC;
 }

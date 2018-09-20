@@ -129,7 +129,7 @@ public class DAO {
 	
 	public void addNote(Note note, User user){
 		if(note.getExpiryDate()==null) {
-			String sql = "INSERT INTO Note (message_body, creation_date, priority_level, is_active id_owner) values(?, ?, ?, ?)";
+			String sql = "INSERT INTO Note (message_body, creation_date, priority_level, is_active, id_owner) values(?, ?, ?, ?, ?)";
 			
 			PreparedStatement stmt;
 			try {
@@ -148,7 +148,7 @@ public class DAO {
 			}
 		}
 		else { 
-			String sql = "INSERT INTO Note "+"(message_body, creation_date,expiry_date, priority_level, id_owner) values(?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO Note "+"(message_body, creation_date, expiry_date, priority_level, id_owner, is_active) values(?, ?, ?, ?, ?, ?)";
 			
 			PreparedStatement stmt;
 			try {
@@ -158,6 +158,7 @@ public class DAO {
 				stmt.setDate(3, note.getExpiryDate() );
 				stmt.setInt(4, note.getPriorityLevel() );
 				stmt.setInt(5, user.getID() );
+				stmt.setBoolean(6, true);
 				
 				stmt.execute();
 				stmt.close();

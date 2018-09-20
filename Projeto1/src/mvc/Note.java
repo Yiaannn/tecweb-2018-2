@@ -1,5 +1,6 @@
 package mvc;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 public class Note {
 
@@ -32,6 +33,18 @@ public class Note {
 			
 			ans+=icon;
 			i+=1;
+		}
+		
+		return ans;
+	}
+	
+	public String getDecoratedExpiryDate(){
+		String ans="Segurar ";
+		if (expiryDate == null){
+			ans+="Indefinidamente";
+		}else{
+			SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+			ans+="até " + df.format(expiryDate);
 		}
 		
 		return ans;
