@@ -32,7 +32,7 @@ public class DAO {
 		PreparedStatement stmt;
 		ResultSet rs;
 		try {
-			stmt = connection.prepareStatement("SELECT * FROM Note WHERE id_owner=?");
+			stmt = connection.prepareStatement("SELECT * FROM Note WHERE id_owner=? ORDER BY priority_level DESC");
 			stmt.setInt(1, user.getID() );
 			rs = stmt.executeQuery();
 			boolean is_active;
