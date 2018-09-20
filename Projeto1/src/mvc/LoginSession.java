@@ -44,11 +44,13 @@ public class LoginSession {
 			String login= tokens[0];
 			String hash= tokens[1];
 			
+			/*
 			System.out.println();
 			System.out.println("O split do meu cookie resultou em:");
 			System.out.println(login);
 			System.out.println(hash);
 			System.out.println();
+			*/
 				
 			user = new User();
 			user.setLoginName(login);

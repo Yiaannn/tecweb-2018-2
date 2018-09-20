@@ -9,10 +9,11 @@
 </head>
 <body>
 
-<form id="signup" action='/Projeto1/SignUp' method='get'></form>
-<form id="signin" action='/Projeto1/SignIn' method='get'></form>
+<form id="notes" action='/Projeto1/Notes' method='get'></form>
+<form id="signout" action='/Projeto1/SignOut' method='post'></form>
 
 <p>${param.message}</p>
+
 <div class="boxwrapper">
 	<div class="centerbox">
 		<div class="centerboxchild">
@@ -20,8 +21,8 @@
 		</div>
 		
 		<div class="centerboxchild">
-			<button type="submit" form='signup'>Inscrever-se</button>
-			<button type="submit" form="signin">Acessar Perfil</button>
+			<button type="submit" form='notes'>Acessar Notas</button>
+			<button type="submit" form="signout">Sair</button>
 		</div>
 	</div>
 </div>

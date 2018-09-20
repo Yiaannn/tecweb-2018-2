@@ -23,4 +23,17 @@ public class Note {
 	
 	public Integer getPriorityLevel() {return this.priorityLevel;}
 	public void setPriorityLevel(Integer priorityLevel) {this.priorityLevel=priorityLevel;}
+	
+	public String getDecoratedPriorityLevel(){
+		int i=0;
+		String icon="❗";
+		String ans= icon;
+		while(i!= this.priorityLevel){
+			
+			ans+=icon;
+			i+=1;
+		}
+		
+		return ans;
+	}
 }

@@ -44,6 +44,8 @@ public class DAO {
 					note.setCreationDate(rs.getDate("creation_date"));
 					note.setExpiryDate(rs.getDate("expiry_date"));
 					note.setPriorityLevel(rs.getInt("priority_level"));
+					note.setID(rs.getInt("id_notes"));
+					
 					notes.add(note);
 				}
 			}
@@ -98,6 +100,21 @@ public class DAO {
 			stmt.setString(1, user.getLoginName() );
 			stmt.setString(2, user.getDisplayName() );
 			stmt.setString(3, user.getPassHash() );
+			
+			stmt.execute();
+			stmt.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void disableNote(int note_id){
+		String sql= "UPDATE Note SET is_active=false WHERE id_notes=?";
+		PreparedStatement stmt;
+		try {
+			stmt = connection.prepareStatement(sql);
+			stmt.setInt(1, note_id );
 			
 			stmt.execute();
 			stmt.close();

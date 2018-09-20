@@ -46,43 +46,23 @@ public class Notes extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException{
-		
-		/*
-		//TODO fazer alguma espécie de check se o User já não existe
-		
+		String methodcheck= request.getParameter("_method");
 		DAO dao= new DAO();
+		LoginSession ls= new LoginSession(dao, request, response);
 		
-		User user= new User();
-		user.setLoginName(request.getParameter("login"));
-		user.setDisplayName(request.getParameter("login")); //na criação são o mesmo valor, depois pode ser trocado
+		if(methodcheck.equals("DELETE")){
 		
-		try{
-			MessageDigest digest = MessageDigest.getInstance("SHA-256");
-			byte[] hash = digest.digest(  request.getParameter("pass").getBytes(StandardCharsets.UTF_8)  );
-			String passhash = bytesToHex(hash);
+			String target= request.getParameter("target");
 			
-			System.out.println("Para garantir, printar o hash:");
-			System.out.println(passhash);
-			user.setPassHash(passhash);
+			dao.disableNote(Integer.parseInt(target));
 			
-			
-			boolean isAvailable= dao.checkIfLoginIsAvailable(user);
-			if (isAvailable){
-				dao.addUser(user);
-				System.out.println("Login não existe, addUser continua");	
-			}else{
-				System.out.println("Login já existe, addUser cancelado");	
-			}
-		}catch (Exception e){
-			System.out.println("Something went really wrong while hashing");
+			//deploy
+			String message = ls.getUser().getLoginName();
+			message="Logado como "+message;
+			List<Note> notes= dao.getActiveNoteList( ls.getUser() );
+			request.setAttribute("notes", notes);
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("ListActive.jsp").forward(request, response);
 		}
-		
-		
-		
-		
-		System.out.println("Teste, caí no doPost");		
-		
-		dao.close();
-		*/
 	}
 }
